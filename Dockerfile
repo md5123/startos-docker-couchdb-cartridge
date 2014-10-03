@@ -18,7 +18,7 @@ RUN apt-get -y update --fix-missing
 
 #################################
 # Enable ssh - This is not good. http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/
-# For experimental purposes only
+# For debug purposes only
 ##################################
 RUN apt-get install -y openssh-server
 RUN echo 'root:password' |chpasswd
@@ -60,11 +60,11 @@ RUN apt-get install -y apache2
 RUN apt-get install -q -y zip unzip
 RUN apt-get install -q -y telnet iputils-ping curl
 RUN apt-get install -q -y curl facter nano vim
-#RUN apt-get install -q -y puppet
 
 
 #######################
 # Install Java and Stratos Cartridge Agent
+# make sure you add jdk1.6.0_24.tar.gz and apache-stratos-cartridge-agent-4.0.0.tgz to respective(packs/) locations
 #######################
 ADD packs/jdk1.6.0_24.tar.gz /opt/
 RUN ln -s /opt/jdk1.6.0_24 /opt/java
@@ -73,6 +73,7 @@ ADD packs/apache-stratos-cartridge-agent-4.0.0.tgz /mnt/
 
 #######################
 # ActiveMQ dependencies
+# make sure you add following libraries to respective(packs/activemq/) locations
 #######################
 ADD packs/activemq/activemq-broker-5.10.0.jar /mnt/apache-stratos-cartridge-agent-4.0.0/lib/activemq-broker-5.10.0.jar
 ADD packs/activemq/activemq-client-5.10.0.jar /mnt/apache-stratos-cartridge-agent-4.0.0/lib/activemq-client-5.10.0.jar
@@ -82,6 +83,7 @@ ADD packs/activemq/hawtbuf-1.10.jar /mnt/apache-stratos-cartridge-agent-4.0.0/li
 
 #######################
 # setup bootup scripts
+# All the scripts are located in scripts directory 
 #######################
 RUN mkdir /root/bin
 ADD scripts/init.sh /root/bin/
@@ -108,10 +110,13 @@ RUN locale-gen en_US.UTF-8
 EXPOSE 22
 EXPOSE 80
 EXPOSE 5984
-#EXPOSE 8101
 
 #######################
 # Run when container is up
 #######################
-#CMD ["/usr/local/bin/couchdb"]
+#
+# couchdb will starting after the agent creation 
+#
+#CMD ["/usr/local/bin/couchdb"] 
+
 ENTRYPOINT /usr/local/bin/run_scripts.sh | /usr/sbin/sshd -D
