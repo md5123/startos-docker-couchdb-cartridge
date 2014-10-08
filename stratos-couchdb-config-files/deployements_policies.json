@@ -1,0 +1,23 @@
+{
+  "id": "couchdb-openstack",
+  "partitionGroup": [
+    {
+      "id": "openstack",
+      "partitionAlgo": "one after another",
+      "partition": [
+        {
+          "id": "P1",
+          "partitionMin": 1,
+          "partitionMax": 3,
+          "provider": "openstack",
+          "property": [
+            {
+              "name": "region",
+              "value": "RegionOne"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "P1",
+  "partitionMin": 0,
+  "partitionMax": 0,
+  "provider": "openstack",
+  "property": [
+    {
+      "name": "region",
+      "value": "RegionOne"
+    }
+  ]
+}

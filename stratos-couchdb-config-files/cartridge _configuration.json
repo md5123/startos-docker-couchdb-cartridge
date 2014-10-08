@@ -1,0 +1,58 @@
+{
+    "type":"couchdb",
+    "provider":"data",
+    "host":"dev.stratos.org",
+    "displayName":"Couchdb",
+    "description":"Couchdb Cartridge",
+    "version":"1.6.1",
+    "defaultAutoscalingPolicy":"economyPolicy",
+    "defaultDeploymentPolicy": "couchdb-openstack",
+    "multiTenant":"false",
+    "portMapping":[
+         {
+            "protocol":"http",
+            "port":"80",
+            "proxyPort":"8280"
+         }
+    ],
+    "deployment": {},
+    "iaasProvider":[
+         {
+            "type":"openstack",
+            "imageId":"RegionOne/ef5a3a0e-1911-41aa-b3d2-0acc78efe8b6",
+            "maxInstanceLimit":"1",
+            "property":[
+         	{
+	             "name": "instanceType",
+        	     "value": "RegionOne/2"
+       		},
+	        {
+            	     "name": "keyPair",
+            	     "value": "demo"
+	        },
+		{
+            	"name": "securityGroups",
+            	"value": "open-all"
+           	}
+            ]
+         }
+    ],
+    "property":[
+        {
+            "name":"payload_parameter.MB_IP",
+            "value":"192.168.57.30"
+        },
+        {
+            "name":"payload_parameter.MB_PORT",
+            "value":"61616"
+        },
+        {
+            "name":"payload_parameter.CEP_IP",
+            "value":"192.168.57.30"
+        },
+        {
+            "name":"payload_parameter.CEP_PORT",
+            "value":"7613"
+        }
+    ]
+}

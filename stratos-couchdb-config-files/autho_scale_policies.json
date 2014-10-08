@@ -1,0 +1,26 @@
+{
+  "id": "economyPolicy",
+  "loadThresholds": {
+    "requestsInFlight": {
+      "average": 50,
+      "secondDerivative": 0,
+      "gradient": 0,
+      "scaleDownMarginOfGradient": 1,
+      "scaleDownMarginOfSecondDerivative": 0.2
+    },
+    "memoryConsumption": {
+      "average": 70,
+      "secondDerivative": 0,
+      "gradient": 0,
+      "scaleDownMarginOfGradient": 1,
+      "scaleDownMarginOfSecondDerivative": 0.2
+    },
+    "loadAverage": {
+      "average": 70,
+      "secondDerivative": 0,
+      "gradient": 0,
+      "scaleDownMarginOfGradient": 1,
+      "scaleDownMarginOfSecondDerivative": 0.2
+    }
+  }
+}
