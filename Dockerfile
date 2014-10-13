@@ -46,14 +46,6 @@ RUN cd /tmp/apache-couchdb-* ; ./configure && make install
 RUN printf "[httpd]\nport = 5984\nbind_address = 0.0.0.0" > /usr/local/etc/couchdb/local.d/docker.ini
 
 #######################
-# Adding dependencies for couchApps
-#######################
-# for Kleks CMS
-ADD couchapps/kleks/kleks.couch /usr/local/var/lib/couchdb/
-ADD couchapps/kleks/static.couch /usr/local/var/lib/couchdb/
-
-
-#######################
 # Installing useful commands
 #######################
 RUN apt-get install -y apache2
@@ -86,11 +78,18 @@ ADD packs/activemq/hawtbuf-1.10.jar /mnt/apache-stratos-cartridge-agent-4.0.0/li
 # All the scripts are located in scripts directory 
 #######################
 RUN mkdir /root/bin
+
 ADD scripts/init.sh /root/bin/
 RUN chmod +x /root/bin/init.sh
+
 ADD scripts/stratos_sendinfo.rb /usr/lib/ruby/1.8/facter/
+
 ADD scripts/metadata_svc_bugfix.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/metadata_svc_bugfix.sh
+
+ADD scripts/couch_apps.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/couch_apps.sh
+
 ADD scripts/run_scripts.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/run_scripts.sh
 
@@ -115,7 +114,7 @@ EXPOSE 5984
 # Run when container is up
 #######################
 #
-# couchdb will starting after the agent creation 
+# couchdb will starting after the agent creation in run_scripts.sh
 #
 #CMD ["/usr/local/bin/couchdb"] 
 
